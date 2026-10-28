@@ -1,4 +1,6 @@
 import base64
+import json
+import urllib.request
 from datetime import date
 from html import escape
 from pathlib import Path
@@ -13,6 +15,8 @@ from profile_data import (
     EDUCATION,
     EXPERIENCE,
     FLICKR_EMBED,
+    FLICKR_PHOTO_COUNT,
+    FLICKR_USER_ID,
     HOBBIES,
     LANGUAGES,
     PROFILE,
@@ -54,6 +58,28 @@ def find_file(path_str):
 def image_data_uri(path):
     mime = "image/png" if path.suffix == ".png" else "image/jpeg"
     return f"data:{mime};base64,{base64.b64encode(path.read_bytes()).decode()}"
+
+
+@st.cache_data(ttl=3600, show_spinner=False)
+def flickr_photos(user_id, count):
+    """Latest public photos from Flickr's public feed (no API key needed)."""
+    url = (
+        "https://www.flickr.com/services/feeds/photos_public.gne"
+        f"?id={user_id}&format=json&nojsoncallback=1"
+    )
+    req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0 (portfolio site)"})
+    with urllib.request.urlopen(req, timeout=10) as resp:
+        raw = resp.read().decode("utf-8").replace("\\'", "'")
+    items = json.loads(raw).get("items", [])[:count]
+    return [
+        {
+            "title": item.get("title") or "Untitled",
+            "link": item["link"],
+            # _m is the small thumbnail; _z is 640px, sharp enough for the grid
+            "src": item["media"]["m"].replace("_m.jpg", "_z.jpg"),
+        }
+        for item in items
+    ]
 
 
 def date_range(start, end):
@@ -259,6 +285,16 @@ html(
       .mails a.mail { color: #fff !important; text-decoration: none !important; font-size: 0.98rem; }
       .mails a.mail:hover { color: var(--gold) !important; }
       iframe { border-radius: 16px; border: 1px solid var(--line) !important; }
+      .photo-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.8rem; }
+      .photo { position: relative; display: block; aspect-ratio: 1; overflow: hidden; border-radius: 14px; background: var(--line); }
+      .photo img { width: 100%; height: 100%; object-fit: cover; transition: transform .4s ease; display: block; }
+      .photo:hover img { transform: scale(1.06); }
+      .photo span {
+        position: absolute; left: 0; right: 0; bottom: 0; padding: 1.6rem 0.8rem 0.6rem;
+        background: linear-gradient(transparent, rgba(11,29,58,0.85)); color: #fff; font-size: 0.78rem;
+        opacity: 0; transition: opacity .3s ease; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+      }
+      .photo:hover span { opacity: 1; }
       .gallery-link { text-align: center; margin-top: 1rem; }
       .hobbies { display: flex; flex-wrap: wrap; gap: 1rem; }
       .hobby { flex: 1 1 200px; align-self: flex-start; text-align: center; padding: 1rem; border-radius: 14px; background: var(--paper); font-weight: 500; color: var(--navy); border: 1px solid transparent; transition: border-color .2s ease, background .2s ease; }
@@ -281,6 +317,7 @@ html(
         .hero img { width: 150px; height: 150px; }
         .stats { grid-template-columns: repeat(2, 1fr); }
         .grid { grid-template-columns: 1fr; }
+        .photo-grid { grid-template-columns: repeat(2, 1fr); }
       }
     </style>
     """
@@ -483,7 +520,21 @@ with tabs["More About Me"]:
 # ---------- Gallery ----------
 with tabs["Gallery"]:
     section_title("gallery", "Photography", "Photo Gallery")
-    if FLICKR_EMBED:
+    photos = []
+    if FLICKR_USER_ID:
+        try:
+            photos = flickr_photos(FLICKR_USER_ID, FLICKR_PHOTO_COUNT)
+        except Exception:
+            photos = []
+    if photos:
+        tiles = "".join(
+            f'<a class="photo" href="{escape(ph["link"])}" target="_blank">'
+            f'<img src="{escape(ph["src"])}" alt="{escape(ph["title"])}" loading="lazy">'
+            f'<span>{escape(ph["title"])}</span></a>'
+            for ph in photos
+        )
+        html(f'<div class="photo-grid">{tiles}</div>')
+    elif FLICKR_EMBED:
         if hasattr(st, "iframe"):
             st.iframe(FLICKR_EMBED, height=520)
         else:

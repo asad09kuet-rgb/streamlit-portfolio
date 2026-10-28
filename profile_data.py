@@ -190,5 +190,8 @@ HOBBIES = {
     "Badminton": {"icon": "🏸", "achievement": "Professional player"},
 }
 
-# Flickr's official slideshow of the photostream (user id 78237795@N08). Set to "" to hide.
+# Gallery tab: latest public photos from this Flickr user id (set to "" to hide the grid)
+FLICKR_USER_ID = "78237795@N08"
+FLICKR_PHOTO_COUNT = 12
+# Fallback slideshow if the photo feed can't be loaded (set to "" to hide)
 FLICKR_EMBED = "https://embedr.flickr.com/photostreams/78237795@N08"

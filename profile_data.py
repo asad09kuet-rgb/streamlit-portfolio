@@ -76,7 +76,7 @@ EXPERIENCE = [
 EDUCATION = [
     {
         "degree": "Master's in Space Project Management (in progress)",
-        "school": "Beihang University, Beijing, China",
+        "school": "Beihang University, Hangzhou, China",
         "start": "Sep 2026",
         "end": "Present",
         "details": "",

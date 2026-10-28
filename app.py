@@ -85,8 +85,9 @@ html(
       :root {
         --navy: #0b1d3a;
         --navy-2: #13294f;
-        --gold: #c9a24b;
-        --gold-soft: rgba(201, 162, 75, 0.14);
+        --gold: #a9b4c6;
+        --steel: #5f6f8a;
+        --gold-soft: rgba(169, 180, 198, 0.14);
         --ink: #1d2433;
         --muted: #667085;
         --line: #e6e8ee;
@@ -131,6 +132,8 @@ html(
         overflow-x: auto; scrollbar-width: none; display: flex;
       }
       .stTabs [role="tablist"]::-webkit-scrollbar { display: none; }
+      [data-testid="stTabsScrollRight"], [data-testid="stTabsScrollLeft"] { display: none !important; }
+      .stTabs [data-testid="stTab"] { box-shadow: none !important; border-bottom: none !important; }
       .stTabs [data-testid="stTab"] {
         height: auto; padding: 0.45rem 1rem; border-radius: 999px; background: transparent;
         white-space: nowrap; transition: background .2s ease; border: none;
@@ -147,17 +150,17 @@ html(
         position: relative; overflow: hidden;
         display: flex; gap: 2.5rem; align-items: center;
         padding: 3rem 3rem; border-radius: 22px;
-        background: radial-gradient(circle at 85% 15%, rgba(201,162,75,0.25), transparent 40%),
+        background: radial-gradient(circle at 85% 15%, rgba(169, 180, 198,0.25), transparent 40%),
                     linear-gradient(135deg, var(--navy) 0%, var(--navy-2) 100%);
         color: #fff; box-shadow: 0 25px 60px -25px rgba(11, 29, 58, 0.55);
       }
       .hero::after {
         content: ""; position: absolute; right: -60px; bottom: -60px; width: 260px; height: 260px;
-        border: 1px solid rgba(201,162,75,0.35); border-radius: 50%;
+        border: 1px solid rgba(169, 180, 198,0.35); border-radius: 50%;
       }
       .hero img {
         width: 200px; height: 200px; border-radius: 50%; object-fit: cover; flex-shrink: 0;
-        border: 4px solid var(--gold); box-shadow: 0 0 0 8px rgba(201,162,75,0.15);
+        border: 4px solid var(--gold); box-shadow: 0 0 0 8px rgba(169, 180, 198,0.15);
       }
       .hero .eyebrow { color: var(--gold); font-size: 0.78rem; letter-spacing: 0.22em; text-transform: uppercase; font-weight: 600; }
       .hero h1 {
@@ -172,7 +175,7 @@ html(
         font-weight: 500; text-decoration: none !important; transition: all .2s ease;
       }
       .btn-gold { background: var(--gold); color: var(--navy) !important; }
-      .btn-gold:hover { background: #d8b45f; }
+      .btn-gold:hover { background: #c3ccd9; }
       .btn-ghost { border: 1px solid rgba(255,255,255,0.4); color: #fff !important; }
       .btn-ghost:hover { border-color: var(--gold); color: var(--gold) !important; }
 
@@ -184,12 +187,12 @@ html(
 
       /* Sections */
       .section-head { margin: 1.5rem 0 1.5rem 0; }
-      .kicker { color: var(--gold); font-size: 0.75rem; letter-spacing: 0.22em; text-transform: uppercase; font-weight: 600; }
+      .kicker { color: var(--steel); font-size: 0.75rem; letter-spacing: 0.22em; text-transform: uppercase; font-weight: 600; }
       .section-head h2 {
         font-family: 'Cormorant Garamond', serif !important; font-size: 2.4rem; font-weight: 700;
         color: var(--navy); margin: 0.2rem 0 0 0; padding: 0;
       }
-      .rule { width: 56px; height: 3px; background: var(--gold); border-radius: 2px; margin-top: 0.7rem; }
+      .rule { width: 56px; height: 3px; background: var(--steel); border-radius: 2px; margin-top: 0.7rem; }
       .about { font-size: 1.05rem; line-height: 1.8; color: var(--ink); max-width: 820px; }
       .about p { margin-bottom: 1rem; }
 
@@ -217,7 +220,7 @@ html(
       }
       .tl-item .card { height: auto; }
       .tl-head { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 0.5rem; }
-      .badge { background: var(--gold-soft); color: #8a6a22; font-size: 0.75rem; font-weight: 600; padding: 0.25rem 0.7rem; border-radius: 999px; white-space: nowrap; }
+      .badge { background: var(--gold-soft); color: #4a5770; font-size: 0.75rem; font-weight: 600; padding: 0.25rem 0.7rem; border-radius: 999px; white-space: nowrap; }
       .card ul { margin: 0.7rem 0 0 0; padding-left: 1.1rem; }
       .card li::marker { color: var(--gold); }
 
@@ -233,7 +236,7 @@ html(
       /* Certifications */
       .cert { display: flex; gap: 0.9rem; align-items: flex-start; padding: 0.9rem 0; border-bottom: 1px solid var(--line); }
       .cert:last-child { border-bottom: none; }
-      .cert .icon { width: 34px; height: 34px; border-radius: 10px; background: var(--gold-soft); display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: #8a6a22; font-size: 0.95rem; }
+      .cert .icon { width: 34px; height: 34px; border-radius: 10px; background: var(--gold-soft); display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: #4a5770; font-size: 0.95rem; }
       .cert .name { font-weight: 600; font-size: 0.93rem; color: var(--ink); }
       .cert .issuer { font-size: 0.83rem; color: var(--muted); }
 
@@ -242,7 +245,7 @@ html(
       .lang .row { display: flex; justify-content: space-between; font-size: 0.88rem; color: var(--ink); }
       .lang .row span:last-child { color: var(--muted); font-size: 0.8rem; }
       .bar { height: 6px; background: var(--line); border-radius: 3px; margin-top: 0.35rem; overflow: hidden; }
-      .bar div { height: 100%; background: linear-gradient(90deg, var(--gold), #e3c67f); border-radius: 3px; }
+      .bar div { height: 100%; background: linear-gradient(90deg, var(--gold), #d3dae4); border-radius: 3px; }
 
       /* Contact */
       .contact {
@@ -258,8 +261,15 @@ html(
       iframe { border-radius: 16px; border: 1px solid var(--line) !important; }
       .gallery-link { text-align: center; margin-top: 1rem; }
       .hobbies { display: flex; flex-wrap: wrap; gap: 1rem; }
-      .hobby { flex: 1 1 140px; text-align: center; padding: 1rem; border-radius: 14px; background: var(--paper); font-weight: 500; color: var(--navy); }
+      .hobby { flex: 1 1 200px; align-self: flex-start; text-align: center; padding: 1rem; border-radius: 14px; background: var(--paper); font-weight: 500; color: var(--navy); border: 1px solid transparent; transition: border-color .2s ease, background .2s ease; }
+      .hobby:hover { border-color: var(--gold); }
+      .hobby[open] { background: #fff; border-color: var(--gold); }
+      .hobby summary { cursor: pointer; list-style: none; }
+      .hobby summary::-webkit-details-marker { display: none; }
       .hobby .emoji { font-size: 1.8rem; margin-bottom: 0.3rem; }
+      .hobby .hint { font-size: 0.72rem; color: var(--muted); font-weight: 400; margin-top: 0.2rem; }
+      .hobby[open] .hint { display: none; }
+      .hobby .achievement { margin-top: 0.7rem; padding-top: 0.7rem; border-top: 1px solid var(--line); font-size: 0.88rem; color: #4a5770; font-weight: 600; }
       .footer { text-align: center; color: var(--muted); font-size: 0.8rem; margin-top: 2rem; }
 
       @media (max-width: 760px) {
@@ -463,8 +473,10 @@ with tabs["More About Me"]:
     )
     if HOBBIES:
         hobbies = "".join(
-            f'<div class="hobby"><div class="emoji">{icon}</div><div>{escape(name)}</div></div>'
-            for name, icon in HOBBIES.items()
+            f'<details class="hobby"><summary><div class="emoji">{h["icon"]}</div>{escape(name)}'
+            f'<div class="hint">Tap to see achievement</div></summary>'
+            f'<div class="achievement">🏆 {escape(h["achievement"])}</div></details>'
+            for name, h in HOBBIES.items()
         )
         html(f'<div class="card skill-group" style="margin-top:1rem"><h4>Hobbies</h4><div class="hobbies">{hobbies}</div></div>')
 

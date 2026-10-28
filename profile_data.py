@@ -30,7 +30,7 @@ PROFILE = {
     "contact": {
         "email": "asad.eee.kuet@gmail.com",
         # Extra addresses listed on the Contact tab
-        "other_emails": ["asad09.kuet@gmail.com", "asadspm@buaa.edu.cn"],
+        "other_emails": ["asad09.kuet@gmail.com", "asadspm@buaa.edu.cn", "asad9919@baf.mil.bd"],
         "linkedin": "https://www.linkedin.com/in/asad09eee/",
         "github": "https://github.com/asad09kuet-rgb",
         "flickr": "https://www.flickr.com/photos/0903087/",
@@ -183,7 +183,12 @@ LANGUAGES = {"English": "Advanced (C1)", "Arabic": "Beginner (A1)", "French": "B
 
 COUNTRIES_VISITED = ["China", "USA", "Canada", "Qatar", "Mali", "Djibouti"]
 
-HOBBIES = {"Photography": "📷", "Volleyball": "🏐", "Badminton": "🏸"}
+# Each hobby card expands on click to show the achievement
+HOBBIES = {
+    "Photography": {"icon": "📷", "achievement": "1st place, Beihang University Photography Competition 2026"},
+    "Volleyball": {"icon": "🏐", "achievement": "Champion team, No. 124 Junior Command & Staff Course"},
+    "Badminton": {"icon": "🏸", "achievement": "Professional player"},
+}
 
 # Flickr's official slideshow of the photostream (user id 78237795@N08). Set to "" to hide.
 FLICKR_EMBED = "https://embedr.flickr.com/photostreams/78237795@N08"

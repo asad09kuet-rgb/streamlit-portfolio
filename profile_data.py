@@ -97,14 +97,14 @@ EDUCATION = [
     },
     {
         "degree": "H.S.C., Science",
-        "school": "Kaliganj M.U. Degree College, Jhenaidah",
+        "school": "Kaliganj M.U. Degree College, Jhenaidah, Bangladesh",
         "start": "",
         "end": "2009",
         "details": "GPA 5.00 / 5.00",
     },
     {
         "degree": "S.S.C., Science",
-        "school": "N.B. High School, Jhenaidah",
+        "school": "N.B. High School, Jhenaidah, Bangladesh",
         "start": "",
         "end": "2007",
         "details": "GPA 5.00 / 5.00",
@@ -155,7 +155,7 @@ PROJECTS = [
         "name": "Defence Against Chemical Disaster: BAF Capacity Building",
         "description": "Group research paper taking a closer look at Bangladesh Air Force "
         "capacity building for chemical disaster response. Command & Staff Training "
-        "Institute, Cox's Bazar, 2024.",
+        "Institute, Cox's Bazar, Bangladesh, 2024.",
         "tags": ["Defence", "Disaster Response", "Research"],
         "link": "",
     },
@@ -163,15 +163,15 @@ PROJECTS = [
 
 # Leave a list empty ([]) to hide it
 CERTIFICATIONS = [
-    {"name": "Artificial Intelligence and LLM", "issuer": "Beihang University", "year": "", "link": ""},
-    {"name": "No. 125 Junior Command & Staff Course", "issuer": "CSTI BAF, Cox's Bazar", "year": "", "link": ""},
+    {"name": "Artificial Intelligence and LLM", "issuer": "Beihang University, Hangzhou, China", "year": "", "link": ""},
+    {"name": "No. 125 Junior Command & Staff Course", "issuer": "CSTI BAF, Cox's Bazar, Bangladesh", "year": "", "link": ""},
     {"name": "Aviation Risk Management (ARM) Course", "issuer": "UN Global Service Centre", "year": "", "link": ""},
     {"name": "United Nations Peacekeeping Certificate", "issuer": "MINUSMA, Mali", "year": "", "link": ""},
     {"name": "Type Trained Helicopter Maintenance Course", "issuer": "Philadelphia, USA", "year": "", "link": ""},
-    {"name": "Aviation Safety Course", "issuer": "Civil Aviation Training Centre, Dhaka", "year": "", "link": ""},
-    {"name": "Ramp Safety Course", "issuer": "Bangladesh Airlines Training Center, Dhaka", "year": "", "link": ""},
-    {"name": "No. 03 Cat D Course", "issuer": "Officers Training School BAF, Jashore", "year": "", "link": ""},
-    {"name": "No. 09 PCPT Course", "issuer": "Officers Training School BAF, Jashore", "year": "", "link": ""},
+    {"name": "Aviation Safety Course", "issuer": "Civil Aviation Training Centre, Dhaka, Bangladesh", "year": "", "link": ""},
+    {"name": "Ramp Safety Course", "issuer": "Bangladesh Airlines Training Center, Dhaka, Bangladesh", "year": "", "link": ""},
+    {"name": "No. 03 Cat D Course", "issuer": "Officers Training School BAF, Jashore, Bangladesh", "year": "", "link": ""},
+    {"name": "No. 09 PCPT Course", "issuer": "Officers Training School BAF, Jashore, Bangladesh", "year": "", "link": ""},
 ]
 
 PUBLICATIONS = [

@@ -176,6 +176,6 @@ PUBLICATIONS = [
 
 AFFILIATIONS = ["Member, Institution of Engineers, Bangladesh (IEB)"]
 
-LANGUAGES = {"English": "Advanced (C1)", "Arabic": "Beginner (A1)", "French": "Beginner (A1)"}
+LANGUAGES = {"English": "Advanced (C1)", "Arabic": "Beginner (A1)", "French": "Beginner (A1)", "Chinese": "Elementary"}
 
 COUNTRIES_VISITED = ["China", "USA", "Canada", "Qatar", "Mali"]

@@ -9,7 +9,7 @@ site is public.
 """
 
 PROFILE = {
-    "name": "Md. Asad Hossain",
+    "name": "Hossain Md Asad",
     "headline": "Squadron Leader, Bangladesh Air Force",
     "location": "Dhaka, Bangladesh",
     # Square photo; app.py also tries .jpg/.png/.webp versions of this path
@@ -29,8 +29,11 @@ PROFILE = {
     ),
     "contact": {
         "email": "asad.eee.kuet@gmail.com",
+        # Extra addresses listed on the Contact tab
+        "other_emails": ["asad09.kuet@gmail.com", "asadspm@buaa.edu.cn"],
         "linkedin": "https://www.linkedin.com/in/asad09eee/",
         "github": "https://github.com/asad09kuet-rgb",
+        "flickr": "https://www.flickr.com/photos/0903087/",
         # Leave empty ("") to hide
         "phone": "",
         "website": "",
@@ -178,4 +181,9 @@ AFFILIATIONS = ["Member, Institution of Engineers, Bangladesh (IEB)"]
 
 LANGUAGES = {"English": "Advanced (C1)", "Arabic": "Beginner (A1)", "French": "Beginner (A1)", "Chinese": "Elementary"}
 
-COUNTRIES_VISITED = ["China", "USA", "Canada", "Qatar", "Mali"]
+COUNTRIES_VISITED = ["China", "USA", "Canada", "Qatar", "Mali", "Djibouti"]
+
+HOBBIES = {"Photography": "📷", "Volleyball": "🏐", "Badminton": "🏸"}
+
+# Flickr's official slideshow of the photostream (user id 78237795@N08). Set to "" to hide.
+FLICKR_EMBED = "https://embedr.flickr.com/photostreams/78237795@N08"

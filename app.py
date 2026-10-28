@@ -4,6 +4,7 @@ from html import escape
 from pathlib import Path
 
 import streamlit as st
+import streamlit.components.v1 as components
 
 from profile_data import (
     AFFILIATIONS,
@@ -11,6 +12,8 @@ from profile_data import (
     COUNTRIES_VISITED,
     EDUCATION,
     EXPERIENCE,
+    FLICKR_EMBED,
+    HOBBIES,
     LANGUAGES,
     PROFILE,
     PROJECTS,
@@ -102,21 +105,42 @@ html(
       [data-testid="stMarkdownContainer"] p { color: var(--ink); }
       a { color: var(--navy-2); }
 
-      /* Navigation */
-      .topnav {
-        position: sticky; top: 0; z-index: 50;
-        display: flex; justify-content: space-between; align-items: center;
-        padding: 0.9rem 0; margin-bottom: 1rem;
-        background: rgba(247, 246, 242, 0.92); backdrop-filter: blur(8px);
+      /* Pinned header */
+      .pinbar {
+        position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+        background: linear-gradient(135deg, var(--navy) 0%, var(--navy-2) 100%);
+        box-shadow: 0 6px 24px -12px rgba(11,29,58,0.6);
+      }
+      .pinbar-inner {
+        max-width: 1080px; margin: 0 auto; padding: 0.6rem 1.25rem;
+        display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+      }
+      .pin-id { display: flex; align-items: center; gap: 0.8rem; min-width: 0; }
+      .pin-id img { width: 46px; height: 46px; border-radius: 50%; object-fit: cover; border: 2px solid var(--gold); }
+      .pin-name { font-family: 'Cormorant Garamond', serif !important; font-size: 1.35rem; font-weight: 700; color: #fff; line-height: 1.1; }
+      .pin-role { font-size: 0.78rem; color: rgba(255,255,255,0.7); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+      .pin-cta { padding: 0.45rem 1.1rem; }
+
+      /* Tabs, pinned under the header */
+      .block-container { padding-top: 136px !important; }
+      .stTabs [role="tablist"] {
+        position: fixed; top: 66px; left: 50%; transform: translateX(-50%); z-index: 900;
+        width: min(1080px, 100%); padding: 0.6rem 1.25rem; gap: 0.35rem;
+        background: var(--paper); box-shadow: 0 0 0 100vmax var(--paper); clip-path: inset(0 -100vmax);
         border-bottom: 1px solid var(--line);
+        overflow-x: auto; scrollbar-width: none; display: flex;
       }
-      .brand { font-family: 'Cormorant Garamond', serif !important; font-size: 1.45rem; font-weight: 700; color: var(--navy); letter-spacing: 0.02em; }
-      .brand span { color: var(--gold); }
-      .navlinks a {
-        margin-left: 1.4rem; font-size: 0.82rem; font-weight: 500; letter-spacing: 0.08em;
-        text-transform: uppercase; color: var(--ink) !important; text-decoration: none !important;
+      .stTabs [role="tablist"]::-webkit-scrollbar { display: none; }
+      .stTabs [data-testid="stTab"] {
+        height: auto; padding: 0.45rem 1rem; border-radius: 999px; background: transparent;
+        white-space: nowrap; transition: background .2s ease; border: none;
       }
-      .navlinks a:hover { color: var(--gold) !important; }
+      .stTabs [data-testid="stTab"] p { font-size: 0.78rem !important; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink); margin: 0; }
+      .stTabs [data-testid="stTab"]:hover p { color: var(--gold); }
+      .stTabs [data-testid="stTab"][aria-selected="true"] { background: var(--navy) !important; }
+      .stTabs [data-testid="stTab"][aria-selected="true"] p { color: #fff !important; }
+      .stTabs [role="tablist"] [data-testid="stTab"]::after, .stTabs [role="tablist"] > div:not([data-testid="stTab"]) { display: none !important; }
+      .stTabs [role="tabpanel"] { padding-top: 0.5rem; }
 
       /* Hero */
       .hero {
@@ -159,7 +183,7 @@ html(
       .stat .lbl { font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-top: 0.4rem; }
 
       /* Sections */
-      .section-head { margin: 3.5rem 0 1.5rem 0; scroll-margin-top: 80px; }
+      .section-head { margin: 1.5rem 0 1.5rem 0; }
       .kicker { color: var(--gold); font-size: 0.75rem; letter-spacing: 0.22em; text-transform: uppercase; font-weight: 600; }
       .section-head h2 {
         font-family: 'Cormorant Garamond', serif !important; font-size: 2.4rem; font-weight: 700;
@@ -228,10 +252,19 @@ html(
       .contact h3 { font-family: 'Cormorant Garamond', serif !important; font-size: 2rem; color: #fff; margin: 0 0 0.5rem 0; padding: 0; }
       .contact p { color: rgba(255,255,255,0.75) !important; margin-bottom: 1.4rem; }
       .contact .btns { justify-content: center; }
+      .mails { display: flex; flex-direction: column; align-items: center; gap: 0.45rem; margin-bottom: 1.4rem; }
+      .mails a.mail { color: #fff !important; text-decoration: none !important; font-size: 0.98rem; }
+      .mails a.mail:hover { color: var(--gold) !important; }
+      iframe { border-radius: 16px; border: 1px solid var(--line) !important; }
+      .gallery-link { text-align: center; margin-top: 1rem; }
+      .hobbies { display: flex; flex-wrap: wrap; gap: 1rem; }
+      .hobby { flex: 1 1 140px; text-align: center; padding: 1rem; border-radius: 14px; background: var(--paper); font-weight: 500; color: var(--navy); }
+      .hobby .emoji { font-size: 1.8rem; margin-bottom: 0.3rem; }
       .footer { text-align: center; color: var(--muted); font-size: 0.8rem; margin-top: 2rem; }
 
       @media (max-width: 760px) {
-        .navlinks { display: none; }
+        .pin-role { display: none; }
+        .pin-name { font-size: 1.15rem; }
         .hero { flex-direction: column; text-align: center; padding: 2rem 1.25rem; }
         .hero h1 { font-size: 2.5rem; }
         .hero .btns { justify-content: center; }
@@ -245,148 +278,158 @@ html(
 
 contact = PROFILE["contact"]
 email = contact.get("email", "")
+all_emails = [e for e in [email, *contact.get("other_emails", [])] if e]
+photo = find_file(PROFILE.get("photo"))
+photo_uri = image_data_uri(photo) if photo else ""
 
-# ---------- Navigation ----------
-nav_items = ["About", "Experience", "Education", "Expertise", "Research", "Contact"]
-nav = "".join(f'<a href="#{n.lower()}">{n}</a>' for n in nav_items)
-name_parts = PROFILE["name"].rsplit(" ", 1)
+# ---------- Pinned header ----------
+thumb = f'<img src="{photo_uri}" alt="">' if photo_uri else ""
 html(
     f"""
-    <div class="topnav">
-      <div class="brand">{escape(name_parts[0])} <span>{escape(name_parts[-1])}</span></div>
-      <div class="navlinks">{nav}</div>
-    </div>
+    <div class="pinbar"><div class="pinbar-inner">
+      <div class="pin-id">{thumb}
+        <div><div class="pin-name">{escape(PROFILE["name"])}</div>
+        <div class="pin-role">{escape(PROFILE["headline"])}</div></div>
+      </div>
+      <a class="btn btn-gold pin-cta" href="mailto:{escape(email)}">Contact</a>
+    </div></div>
     """
 )
 
-# ---------- Hero ----------
-photo = find_file(PROFILE.get("photo"))
-photo_html = f'<img src="{image_data_uri(photo)}" alt="{escape(PROFILE["name"])}">' if photo else ""
 buttons = []
 if email:
     buttons.append(f'<a class="btn btn-gold" href="mailto:{escape(email)}">Get in touch</a>')
 if contact.get("linkedin"):
     buttons.append(f'<a class="btn btn-ghost" href="{escape(contact["linkedin"])}" target="_blank">LinkedIn</a>')
+if contact.get("flickr"):
+    buttons.append(f'<a class="btn btn-ghost" href="{escape(contact["flickr"])}" target="_blank">Flickr</a>')
 if contact.get("github"):
     buttons.append(f'<a class="btn btn-ghost" href="{escape(contact["github"])}" target="_blank">GitHub</a>')
-html(
-    f"""
-    <div class="hero">
-      {photo_html}
-      <div>
-        <div class="eyebrow">Portfolio</div>
-        <h1>{escape(PROFILE["name"])}</h1>
-        <p class="role">{escape(PROFILE["headline"])}</p>
-        <div class="loc">📍 {escape(PROFILE["location"])}</div>
-        <div class="btns">{"".join(buttons)}</div>
-      </div>
-    </div>
-    """
-)
 
-resume = find_file(PROFILE.get("resume"))
-if resume:
-    st.download_button("Download CV", data=resume.read_bytes(), file_name=resume.name, mime="application/pdf")
+tab_names = ["Overview", "Experience", "Education", "Expertise", "Research", "Training", "More About Me", "Gallery", "Contact"]
+tabs = dict(zip(tab_names, st.tabs(tab_names)))
 
-stats = [
-    (f"{date.today().year - CAREER_START_YEAR}+", "Years experience"),
-    (str(len(CERTIFICATIONS)), "Professional courses"),
-    (str(len(PROJECTS)), "Research works"),
-    (str(len(COUNTRIES_VISITED)), "Countries"),
-]
-html(
-    '<div class="stats">'
-    + "".join(f'<div class="stat"><div class="num">{n}</div><div class="lbl">{l}</div></div>' for n, l in stats)
-    + "</div>"
-)
-
-# ---------- About ----------
-section_title("about", "Introduction", "About Me")
-paragraphs = "".join(f"<p>{escape(p)}</p>" for p in PROFILE["about"].split("\n\n"))
-html(f'<div class="about">{paragraphs}</div>')
+# ---------- Overview ----------
+with tabs["Overview"]:
+    photo_html = f'<img src="{photo_uri}" alt="{escape(PROFILE["name"])}">' if photo_uri else ""
+    html(
+        f"""
+        <div class="hero">
+          {photo_html}
+          <div>
+            <div class="eyebrow">Portfolio</div>
+            <h1>{escape(PROFILE["name"])}</h1>
+            <p class="role">{escape(PROFILE["headline"])}</p>
+            <div class="loc">📍 {escape(PROFILE["location"])}</div>
+            <div class="btns">{"".join(buttons)}</div>
+          </div>
+        </div>
+        """
+    )
+    resume = find_file(PROFILE.get("resume"))
+    if resume:
+        st.download_button("Download CV", data=resume.read_bytes(), file_name=resume.name, mime="application/pdf")
+    stats = [
+        (f"{date.today().year - CAREER_START_YEAR}+", "Years experience"),
+        (str(len(CERTIFICATIONS)), "Professional courses"),
+        (str(len(PROJECTS)), "Research works"),
+        (str(len(COUNTRIES_VISITED)), "Countries"),
+    ]
+    html(
+        '<div class="stats">'
+        + "".join(f'<div class="stat"><div class="num">{n}</div><div class="lbl">{l}</div></div>' for n, l in stats)
+        + "</div>"
+    )
+    section_title("about", "Introduction", "About Me")
+    paragraphs = "".join(f"<p>{escape(p)}</p>" for p in PROFILE["about"].split("\n\n"))
+    html(f'<div class="about">{paragraphs}</div>')
 
 # ---------- Experience ----------
-section_title("experience", "Career", "Professional Experience")
-items = []
-for job in EXPERIENCE:
-    bullets = "".join(f"<li>{escape(h)}</li>" for h in job.get("highlights", []))
-    items.append(
-        f"""
-        <div class="tl-item"><div class="card">
-          <div class="tl-head"><h3>{escape(job['title'])}</h3>
-            <span class="badge">{escape(date_range(job['start'], job['end']))}</span></div>
-          <div class="sub">{escape(job['company'])}</div>
-          <div class="meta">{escape(job.get('location', ''))}</div>
-          <ul>{bullets}</ul>
-        </div></div>
-        """
-    )
-html(f'<div class="timeline">{"".join(items)}</div>')
+with tabs["Experience"]:
+    section_title("experience", "Career", "Professional Experience")
+    items = []
+    for job in EXPERIENCE:
+        bullets = "".join(f"<li>{escape(h)}</li>" for h in job.get("highlights", []))
+        items.append(
+            f"""
+            <div class="tl-item"><div class="card">
+              <div class="tl-head"><h3>{escape(job['title'])}</h3>
+                <span class="badge">{escape(date_range(job['start'], job['end']))}</span></div>
+              <div class="sub">{escape(job['company'])}</div>
+              <div class="meta">{escape(job.get('location', ''))}</div>
+              <ul>{bullets}</ul>
+            </div></div>
+            """
+        )
+    html(f'<div class="timeline">{"".join(items)}</div>')
 
 # ---------- Education ----------
-section_title("education", "Academics", "Education")
-cards = []
-for edu in EDUCATION:
-    details = f"<p>{escape(edu['details'])}</p>" if edu.get("details") else ""
-    cards.append(
-        f"""
-        <div class="card">
-          <span class="badge">{escape(date_range(edu['start'], edu['end']))}</span>
-          <h3 style="margin-top:0.7rem">{escape(edu['degree'])}</h3>
-          <div class="sub">{escape(edu['school'])}</div>
-          {details}
-        </div>
-        """
-    )
-html(f'<div class="grid">{"".join(cards)}</div>')
+with tabs["Education"]:
+    section_title("education", "Academics", "Education")
+    cards = []
+    for edu in EDUCATION:
+        details = f"<p>{escape(edu['details'])}</p>" if edu.get("details") else ""
+        cards.append(
+            f"""
+            <div class="card">
+              <span class="badge">{escape(date_range(edu['start'], edu['end']))}</span>
+              <h3 style="margin-top:0.7rem">{escape(edu['degree'])}</h3>
+              <div class="sub">{escape(edu['school'])}</div>
+              {details}
+            </div>
+            """
+        )
+    html(f'<div class="grid">{"".join(cards)}</div>')
 
 # ---------- Expertise ----------
-section_title("expertise", "Capabilities", "Expertise")
-groups = "".join(
-    f'<div class="card skill-group"><h4>{escape(group)}</h4>{chips(items)}</div>' for group, items in SKILLS.items()
-)
-html(f'<div class="grid">{groups}</div>')
+with tabs["Expertise"]:
+    section_title("expertise", "Capabilities", "Expertise")
+    groups = "".join(
+        f'<div class="card skill-group"><h4>{escape(group)}</h4>{chips(items)}</div>'
+        for group, items in SKILLS.items()
+    )
+    html(f'<div class="grid">{groups}</div>')
 
 # ---------- Research ----------
-section_title("research", "Publications & Papers", "Research")
-cards = []
-for proj in PROJECTS:
-    link = proj.get("link")
-    link_html = f'<p><a href="{escape(link)}" target="_blank">Read more →</a></p>' if link else ""
-    cards.append(
-        f"""
-        <div class="card">
-          <h3>{escape(proj['name'])}</h3>
-          <p>{escape(proj['description'])}</p>
-          <div>{chips(proj.get('tags', []))}</div>
-          {link_html}
-        </div>
-        """
-    )
-html(f'<div class="grid">{"".join(cards)}</div>')
-if PUBLICATIONS:
-    pubs = "".join(
-        f"<li><b>{escape(p['title'])}</b>, <i>{escape(p['venue'])}</i></li>" for p in PUBLICATIONS
-    )
-    html(f'<div class="card" style="margin-top:1rem"><h3>Publications</h3><ul>{pubs}</ul></div>')
+with tabs["Research"]:
+    section_title("research", "Publications & Papers", "Research")
+    cards = []
+    for proj in PROJECTS:
+        link = proj.get("link")
+        link_html = f'<p><a href="{escape(link)}" target="_blank">Read more →</a></p>' if link else ""
+        cards.append(
+            f"""
+            <div class="card">
+              <h3>{escape(proj['name'])}</h3>
+              <p>{escape(proj['description'])}</p>
+              <div>{chips(proj.get('tags', []))}</div>
+              {link_html}
+            </div>
+            """
+        )
+    html(f'<div class="grid">{"".join(cards)}</div>')
+    if PUBLICATIONS:
+        pubs = "".join(f"<li><b>{escape(p['title'])}</b>, <i>{escape(p['venue'])}</i></li>" for p in PUBLICATIONS)
+        html(f'<div class="card" style="margin-top:1rem"><h3>Publications</h3><ul>{pubs}</ul></div>')
 
-# ---------- Certifications & more ----------
-section_title("training", "Training", "Courses & Certifications")
-certs = []
-for cert in CERTIFICATIONS:
-    year = f" · {escape(cert['year'])}" if cert.get("year") else ""
-    name = escape(cert["name"])
-    if cert.get("link"):
-        name = f'<a href="{escape(cert["link"])}" target="_blank">{name}</a>'
-    certs.append(
-        f'<div class="cert"><div class="icon">✦</div><div><div class="name">{name}</div>'
-        f'<div class="issuer">{escape(cert["issuer"])}{year}</div></div></div>'
+# ---------- Training ----------
+with tabs["Training"]:
+    section_title("training", "Training", "Courses & Certifications")
+    certs = []
+    for cert in CERTIFICATIONS:
+        year = f" · {escape(cert['year'])}" if cert.get("year") else ""
+        name = escape(cert["name"])
+        if cert.get("link"):
+            name = f'<a href="{escape(cert["link"])}" target="_blank">{name}</a>'
+        certs.append(
+            f'<div class="cert"><div class="icon">✦</div><div><div class="name">{name}</div>'
+            f'<div class="issuer">{escape(cert["issuer"])}{year}</div></div></div>'
+        )
+    half = (len(certs) + 1) // 2
+    html(
+        f'<div class="grid"><div class="card">{"".join(certs[:half])}</div>'
+        f'<div class="card">{"".join(certs[half:])}</div></div>'
     )
-half = (len(certs) + 1) // 2
-html(
-    f'<div class="grid"><div class="card">{"".join(certs[:half])}</div>'
-    f'<div class="card">{"".join(certs[half:])}</div></div>'
-)
 
 LEVEL_WIDTH = {"A1": 20, "A2": 35, "B1": 50, "B2": 65, "C1": 85, "C2": 100}
 
@@ -398,7 +441,8 @@ def level_width(level):
     return {"native": 100, "elementary": 35, "beginner": 20}.get(level.lower(), 50)
 
 
-if LANGUAGES or AFFILIATIONS or COUNTRIES_VISITED:
+# ---------- More about me ----------
+with tabs["More About Me"]:
     section_title("more", "Beyond Work", "More About Me")
     langs = "".join(
         f'<div class="lang"><div class="row"><span>{escape(l)}</span><span>{escape(v)}</span></div>'
@@ -417,21 +461,45 @@ if LANGUAGES or AFFILIATIONS or COUNTRIES_VISITED:
         </div>
         """
     )
+    if HOBBIES:
+        hobbies = "".join(
+            f'<div class="hobby"><div class="emoji">{icon}</div><div>{escape(name)}</div></div>'
+            for name, icon in HOBBIES.items()
+        )
+        html(f'<div class="card skill-group" style="margin-top:1rem"><h4>Hobbies</h4><div class="hobbies">{hobbies}</div></div>')
+
+# ---------- Gallery ----------
+with tabs["Gallery"]:
+    section_title("gallery", "Photography", "Photo Gallery")
+    if FLICKR_EMBED:
+        if hasattr(st, "iframe"):
+            st.iframe(FLICKR_EMBED, height=520)
+        else:
+            components.iframe(FLICKR_EMBED, height=520)
+    if contact.get("flickr"):
+        html(
+            f'<div class="gallery-link"><a class="btn btn-gold" href="{escape(contact["flickr"])}" '
+            f'target="_blank">View all photos on Flickr →</a></div>'
+        )
 
 # ---------- Contact ----------
-section_title("contact", "Contact", "Let's Connect")
-contact_btns = list(buttons)
-if contact.get("phone"):
-    contact_btns.append(f'<a class="btn btn-ghost" href="tel:{escape(contact["phone"])}">{escape(contact["phone"])}</a>')
-if contact.get("website"):
-    contact_btns.append(f'<a class="btn btn-ghost" href="{escape(contact["website"])}" target="_blank">Website</a>')
-html(
-    f"""
-    <div class="contact">
-      <h3>Open to new opportunities</h3>
-      <p>For collaborations, engineering management roles, or just to say hello.<br>{escape(email)}</p>
-      <div class="btns">{"".join(contact_btns)}</div>
-    </div>
-    <div class="footer">© {date.today().year} {escape(PROFILE["name"])}</div>
-    """
-)
+with tabs["Contact"]:
+    section_title("contact", "Contact", "Let's Connect")
+    contact_btns = list(buttons)
+    if contact.get("phone"):
+        contact_btns.append(f'<a class="btn btn-ghost" href="tel:{escape(contact["phone"])}">{escape(contact["phone"])}</a>')
+    if contact.get("website"):
+        contact_btns.append(f'<a class="btn btn-ghost" href="{escape(contact["website"])}" target="_blank">Website</a>')
+    email_links = "".join(f'<a class="mail" href="mailto:{escape(e)}">✉ {escape(e)}</a>' for e in all_emails)
+    html(
+        f"""
+        <div class="contact">
+          <h3>Open to new opportunities</h3>
+          <p>For collaborations, engineering management roles, or just to say hello.</p>
+          <div class="mails">{email_links}</div>
+          <div class="btns">{"".join(contact_btns)}</div>
+        </div>
+        """
+    )
+
+html(f'<div class="footer">© {date.today().year} {escape(PROFILE["name"])}</div>')

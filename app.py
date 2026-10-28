@@ -183,14 +183,15 @@ html(
       /* Hero */
       .hero {
         position: relative; overflow: hidden;
-        display: flex; gap: 2.5rem; align-items: center;
-        padding: 3rem 3rem; border-radius: 22px;
-        background: radial-gradient(circle at 85% 15%, rgba(169, 180, 198,0.25), transparent 40%),
+        display: flex; flex-direction: row-reverse; justify-content: space-between;
+        gap: 2.5rem; align-items: center;
+        padding: 3rem 3.5rem; border-radius: 22px;
+        background: radial-gradient(circle at 80% 20%, rgba(169, 180, 198,0.25), transparent 40%),
                     linear-gradient(135deg, var(--navy) 0%, var(--navy-2) 100%);
         color: #fff; box-shadow: 0 25px 60px -25px rgba(11, 29, 58, 0.55);
       }
       .hero::after {
-        content: ""; position: absolute; right: -60px; bottom: -60px; width: 260px; height: 260px;
+        content: ""; position: absolute; left: -150px; bottom: -150px; width: 260px; height: 260px;
         border: 1px solid rgba(169, 180, 198,0.35); border-radius: 50%;
       }
       .hero img {

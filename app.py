@@ -509,6 +509,14 @@ def level_width(level):
 # ---------- More about me ----------
 with tabs["More About Me"]:
     section_title("more", "Beyond Work", "More About Me")
+    if HOBBIES:
+        hobbies = "".join(
+            f'<details class="hobby"><summary><div class="emoji">{h["icon"]}</div>{escape(name)}'
+            f'<div class="hint">Tap to see achievement</div></summary>'
+            f'<div class="achievement">🏆 {escape(h["achievement"])}</div></details>'
+            for name, h in HOBBIES.items()
+        )
+        html(f'<div class="card skill-group" style="margin-bottom:1rem"><h4>Hobbies</h4><div class="hobbies">{hobbies}</div></div>')
     langs = "".join(
         f'<div class="lang"><div class="row"><span>{escape(l)}</span><span>{escape(v)}</span></div>'
         f'<div class="bar"><div style="width:{level_width(v)}%"></div></div></div>'
@@ -526,14 +534,6 @@ with tabs["More About Me"]:
         </div>
         """
     )
-    if HOBBIES:
-        hobbies = "".join(
-            f'<details class="hobby"><summary><div class="emoji">{h["icon"]}</div>{escape(name)}'
-            f'<div class="hint">Tap to see achievement</div></summary>'
-            f'<div class="achievement">🏆 {escape(h["achievement"])}</div></details>'
-            for name, h in HOBBIES.items()
-        )
-        html(f'<div class="card skill-group" style="margin-top:1rem"><h4>Hobbies</h4><div class="hobbies">{hobbies}</div></div>')
 
 # ---------- Gallery ----------
 with tabs["Gallery"]:

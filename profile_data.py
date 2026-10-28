@@ -127,6 +127,7 @@ SKILLS = {
         "Contract Negotiation",
         "Logistics Operations",
     ],
+    "Programming Languages": ["C", "C++", "Python"],
     "Leadership": [
         "Team Leadership",
         "Staff Development & Mentoring",

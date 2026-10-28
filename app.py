@@ -1,4 +1,5 @@
 import base64
+import importlib
 import json
 import urllib.request
 from datetime import date
@@ -7,6 +8,12 @@ from pathlib import Path
 
 import streamlit as st
 import streamlit.components.v1 as components
+
+import profile_data
+
+# Streamlit keeps imported modules cached between reruns; reload so edits to
+# profile_data.py always show up without restarting the app.
+importlib.reload(profile_data)
 
 from profile_data import (
     AFFILIATIONS,
@@ -147,6 +154,8 @@ html(
       .pin-name { font-family: 'Cormorant Garamond', serif !important; font-size: 1.35rem; font-weight: 700; color: #fff; line-height: 1.1; }
       .pin-role { font-size: 0.78rem; color: rgba(255,255,255,0.7); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
       .pin-cta { padding: 0.45rem 1.1rem; }
+      .pin-wa { background: #25d366; color: #fff !important; display: inline-flex; align-items: center; gap: 0.4rem; }
+      .pin-wa:hover { background: #1ebe5b; }
 
       /* Tabs, pinned under the header */
       .block-container { padding-top: 136px !important; }
@@ -330,6 +339,15 @@ photo = find_file(PROFILE.get("photo"))
 photo_uri = image_data_uri(photo) if photo else ""
 
 # ---------- Pinned header ----------
+whatsapp = "".join(ch for ch in contact.get("whatsapp", "") if ch.isdigit())
+if whatsapp:
+    pin_cta = (
+        f'<a class="btn pin-cta pin-wa" href="https://wa.me/{whatsapp}" target="_blank">'
+        f'<svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .1-1.3c0-.1-.2-.2-.5-.3z"/></svg>'
+        f' WhatsApp</a>'
+    )
+else:
+    pin_cta = f'<a class="btn btn-gold pin-cta" href="mailto:{escape(email)}">Contact</a>'
 thumb = f'<img src="{photo_uri}" alt="">' if photo_uri else ""
 html(
     f"""
@@ -338,7 +356,7 @@ html(
         <div><div class="pin-name">{escape(PROFILE["name"])}</div>
         <div class="pin-role">{escape(PROFILE["headline"])}</div></div>
       </div>
-      <a class="btn btn-gold pin-cta" href="mailto:{escape(email)}">Contact</a>
+      {pin_cta}
     </div></div>
     """
 )

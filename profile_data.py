@@ -36,6 +36,9 @@ PROFILE = {
         "flickr": "https://www.flickr.com/photos/0903087/",
         # Leave empty ("") to hide
         "phone": "",
+        # WhatsApp number in international format, digits only (e.g. "8801XXXXXXXXX").
+        # When set, the top-bar button becomes a WhatsApp button. Leave "" to show email.
+        "whatsapp": "8801717146374",
         "website": "",
     },
 }

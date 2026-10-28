@@ -320,6 +320,48 @@ html(
       .hobby .achievement { margin-top: 0.7rem; padding-top: 0.7rem; border-top: 1px solid var(--line); font-size: 0.88rem; color: #4a5770; font-weight: 600; }
       .footer { text-align: center; color: var(--muted); font-size: 0.8rem; margin-top: 2rem; }
 
+      /* Motion: floating and fade-in */
+      @keyframes floaty { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+      @keyframes drift { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(18px, -14px); } }
+      @keyframes rise { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+      @keyframes glow { 0%, 100% { box-shadow: 0 0 0 8px rgba(169,180,198,0.15), 0 20px 40px -20px rgba(0,0,0,0.5); }
+                        50% { box-shadow: 0 0 0 14px rgba(169,180,198,0.08), 0 30px 50px -20px rgba(0,0,0,0.55); } }
+      @keyframes sheen { 0% { background-position: 0% 50%; } 100% { background-position: 200% 50%; } }
+      .hero img { animation: floaty 6s ease-in-out infinite, glow 6s ease-in-out infinite; }
+      .hero::after { animation: drift 14s ease-in-out infinite; }
+      .hero::before {
+        content: ""; position: absolute; top: -80px; right: 22%; width: 180px; height: 180px; border-radius: 50%;
+        background: radial-gradient(circle, rgba(169,180,198,0.22), transparent 70%);
+        animation: drift 11s ease-in-out infinite reverse; pointer-events: none;
+      }
+      .hero > div { position: relative; z-index: 1; }
+      .hero h1 {
+        background: linear-gradient(90deg, #fff 0%, #fff 40%, #d3dae4 50%, #fff 60%, #fff 100%);
+        background-size: 200% auto; -webkit-background-clip: text; background-clip: text; color: transparent !important;
+        animation: sheen 7s linear infinite;
+      }
+      .hero h1 * { color: transparent !important; }
+      .hero, .stat, .card, .section-head, .about, .photo, .contact, .tl-item {
+        animation: rise .7s cubic-bezier(.2,.7,.2,1) both;
+      }
+      .stats .stat:nth-child(2), .grid > *:nth-child(2), .photo-grid > *:nth-child(2) { animation-delay: .08s; }
+      .stats .stat:nth-child(3), .grid > *:nth-child(3), .photo-grid > *:nth-child(3) { animation-delay: .16s; }
+      .stats .stat:nth-child(4), .grid > *:nth-child(4), .photo-grid > *:nth-child(4) { animation-delay: .24s; }
+      .photo-grid > *:nth-child(n+5) { animation-delay: .32s; }
+      .tl-item:nth-child(2) { animation-delay: .12s; }
+      .stat { transition: transform .25s ease, box-shadow .25s ease; }
+      .stat:hover { transform: translateY(-6px); box-shadow: 0 22px 40px -24px rgba(11,29,58,0.45); }
+      .card:hover { transform: translateY(-6px); box-shadow: 0 24px 48px -26px rgba(11,29,58,0.45); }
+      .chip { transition: transform .2s ease, border-color .2s ease; }
+      .chip:hover { transform: translateY(-2px); border-color: var(--gold); }
+      .btn:hover { transform: translateY(-2px); }
+      .pin-wa { animation: floaty 3.5s ease-in-out infinite; }
+      .hobby .emoji { display: inline-block; transition: transform .3s ease; }
+      .hobby:hover .emoji { transform: translateY(-4px) scale(1.12); }
+      @media (prefers-reduced-motion: reduce) {
+        *, *::before, *::after { animation: none !important; transition: none !important; }
+      }
+
       @media (max-width: 760px) {
         .pin-role { display: none; }
         .pin-name { font-size: 1.15rem; }

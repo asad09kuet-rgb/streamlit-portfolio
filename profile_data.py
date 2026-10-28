@@ -75,12 +75,11 @@ EXPERIENCE = [
 
 EDUCATION = [
     {
-        # Listed on LinkedIn but not in the CV. TODO: add degree, years and details,
-        # or delete this entry.
-        "degree": "TODO: Degree and field",
-        "school": "Beihang University",
-        "start": "TODO",
-        "end": "TODO",
+        # TODO: replace with the exact degree and field, e.g. "M.Sc. in ..."
+        "degree": "Graduate studies (in progress)",
+        "school": "Beihang University, Beijing, China",
+        "start": "Sep 2026",
+        "end": "Present",
         "details": "",
     },
     {

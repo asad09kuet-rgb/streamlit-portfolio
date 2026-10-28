@@ -266,6 +266,8 @@ html(
         background: #fff; border: 1px solid var(--line);
       }
       .card .chip { background: var(--paper); }
+      .flag-chip { display: inline-flex; align-items: center; gap: 0.45rem; }
+      .flag-chip img { width: 20px; height: 14px; object-fit: cover; border-radius: 2px; box-shadow: 0 0 0 1px rgba(0,0,0,0.08); }
       .skill-group h4 { font-size: 0.78rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); margin: 0 0 0.6rem 0; font-weight: 600; }
 
       /* Certifications */
@@ -523,12 +525,17 @@ with tabs["More About Me"]:
         for l, v in LANGUAGES.items()
     )
     affs = "".join(f"<p>{escape(a)}</p>" for a in AFFILIATIONS)
+    flags = "".join(
+        f'<span class="chip flag-chip"><img src="https://flagcdn.com/w40/{escape(code)}.png" alt="" '
+        f'width="20" height="14">{escape(country)}</span>'
+        for country, code in COUNTRIES_VISITED.items()
+    )
     html(
         f"""
         <div class="grid">
           <div class="card skill-group"><h4>Languages</h4>{langs}</div>
           <div>
-            <div class="card skill-group" style="margin-bottom:1rem"><h4>Countries visited</h4>{chips(COUNTRIES_VISITED)}</div>
+            <div class="card skill-group" style="margin-bottom:1rem"><h4>Countries visited</h4>{flags}</div>
             <div class="card skill-group"><h4>Affiliations</h4>{affs}</div>
           </div>
         </div>

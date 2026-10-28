@@ -184,7 +184,8 @@ AFFILIATIONS = ["Member, Institution of Engineers, Bangladesh (IEB)"]
 
 LANGUAGES = {"English": "Advanced (C1)", "Arabic": "Beginner (A1)", "French": "Beginner (A1)", "Chinese": "Elementary"}
 
-COUNTRIES_VISITED = ["China", "USA", "Canada", "Qatar", "Mali", "Djibouti"]
+# Country name -> two-letter ISO code (used to show the flag)
+COUNTRIES_VISITED = {"China": "cn", "USA": "us", "Canada": "ca", "Qatar": "qa", "Mali": "ml", "Djibouti": "dj"}
 
 # Each hobby card expands on click to show the achievement
 HOBBIES = {

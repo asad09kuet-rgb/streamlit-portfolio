@@ -10,7 +10,7 @@ site is public.
 
 PROFILE = {
     "name": "Md. Asad Hossain",
-    "headline": "Squadron Leader, Bangladesh Air Force · Electrical & Electronic Engineer (KUET)",
+    "headline": "Squadron Leader, Bangladesh Air Force",
     "location": "Dhaka, Bangladesh",
     # Square photo; app.py also tries .jpg/.png/.webp versions of this path
     "photo": "assets/profile.jpg",

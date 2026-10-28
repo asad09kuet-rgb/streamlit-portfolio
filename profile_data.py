@@ -183,7 +183,7 @@ PUBLICATIONS = [
 
 AFFILIATIONS = ["Member, Institution of Engineers, Bangladesh (IEB)"]
 
-LANGUAGES = {"English": "Advanced (C1)", "Arabic": "Beginner (A1)", "French": "Beginner (A1)", "Chinese": "Elementary"}
+LANGUAGES = {"Bangla": "Mother tongue", "English": "Advanced (C1)", "Arabic": "Beginner (A1)", "French": "Beginner (A1)", "Chinese": "Elementary"}
 
 # Country name -> two-letter ISO code (used to show the flag)
 COUNTRIES_VISITED = {"China": "cn", "USA": "us", "Canada": "ca", "Qatar": "qa", "Mali": "ml", "Djibouti": "dj"}

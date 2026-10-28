@@ -548,7 +548,7 @@ def level_width(level):
     for code, width in LEVEL_WIDTH.items():
         if code in level:
             return width
-    return {"native": 100, "elementary": 35, "beginner": 20}.get(level.lower(), 50)
+    return {"native": 100, "mother tongue": 100, "elementary": 35, "beginner": 20}.get(level.lower(), 50)
 
 
 # ---------- More about me ----------

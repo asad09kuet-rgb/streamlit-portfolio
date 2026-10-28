@@ -113,6 +113,7 @@ EDUCATION = [
 
 # Skill groups: {"Group name": ["skill", ...]}
 SKILLS = {
+    "Space": ["Space Project Management", "Space Technology"],
     "Aviation & Engineering": [
         "Aircraft Maintenance",
         "Airfield Operations",
@@ -124,7 +125,7 @@ SKILLS = {
         "Project Management & Oversight",
         "Defence Procurement",
         "Contract Negotiation",
-        "Logistics",
+        "Logistics Operations",
     ],
     "Leadership": [
         "Team Leadership",

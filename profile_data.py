@@ -162,7 +162,7 @@ CERTIFICATIONS = [
     {"name": "No. 125 Junior Command & Staff Course", "issuer": "CSTI BAF, Cox's Bazar", "year": "", "link": ""},
     {"name": "Aviation Risk Management (ARM) Course", "issuer": "UN Global Service Centre", "year": "", "link": ""},
     {"name": "United Nations Peacekeeping Certificate", "issuer": "MINUSMA, Mali", "year": "", "link": ""},
-    {"name": "AW119 Helicopter Maintenance Course", "issuer": "Philadelphia, USA", "year": "", "link": ""},
+    {"name": "Type Trained Helicopter Maintenance Course", "issuer": "Philadelphia, USA", "year": "", "link": ""},
     {"name": "Aviation Safety Course", "issuer": "Civil Aviation Training Centre, Dhaka", "year": "", "link": ""},
     {"name": "Ramp Safety Course", "issuer": "Bangladesh Airlines Training Center, Dhaka", "year": "", "link": ""},
     {"name": "No. 03 Cat D Course", "issuer": "Officers Training School BAF, Jashore", "year": "", "link": ""},

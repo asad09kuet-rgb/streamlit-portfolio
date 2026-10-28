@@ -2,28 +2,33 @@
 All website content lives here. Edit this file to update the site; you should
 not need to touch app.py.
 
-Filled from the top card of https://www.linkedin.com/in/asad09eee/ (name,
-headline, organisations, location). The saved page did not include the About,
-Experience, Education or Skills sections, so anything marked "TODO" is a
-placeholder: copy the real text from your LinkedIn profile into it.
+Content comes from the 2025 CV and the LinkedIn profile
+(https://www.linkedin.com/in/asad09eee/). Phone numbers, date of birth, home
+address and referees' contact details are deliberately left off because this
+site is public.
 """
 
 PROFILE = {
-    "name": "Hossain Asad",
-    "headline": "Bangladesh Air Force · Beihang University · KUET",
+    "name": "Md. Asad Hossain",
+    "headline": "Squadron Leader, Bangladesh Air Force · Electrical & Electronic Engineer (KUET)",
     "location": "Dhaka, Bangladesh",
-    # Optional: put a square photo at assets/profile.jpg (or .png) and it will show up
+    # Square photo; app.py also tries .jpg/.png/.webp versions of this path
     "photo": "assets/profile.jpg",
     # Optional: put your CV at assets/resume.pdf and a download button will appear
     "resume": "assets/resume.pdf",
-    # TODO: replace with your LinkedIn "About" section
     "about": (
-        "TODO: Write a short summary about yourself here. "
-        "Who you are, what you work on, and what you are looking for. "
-        "Two or three short paragraphs work best."
+        "I am a Squadron Leader in the Bangladesh Air Force and an Electrical & Electronic "
+        "Engineer from KUET, with over ten years of experience in aircraft maintenance, "
+        "airfield operations, defence procurement and project management.\n\n"
+        "I have commanded aircraft maintenance units, served as a staff officer and instructor, "
+        "worked with multinational teams on UN peacekeeping in Mali, and overseen the technical "
+        "evaluation and procurement of aerospace equipment.\n\n"
+        "I am looking to apply this leadership, engineering and project management experience "
+        "in a challenging engineering management role, driving operational excellence, "
+        "innovation and organizational growth."
     ),
     "contact": {
-        "email": "asad09.kuet@gmail.com",
+        "email": "asad.eee.kuet@gmail.com",
         "linkedin": "https://www.linkedin.com/in/asad09eee/",
         "github": "https://github.com/asad09kuet-rgb",
         # Leave empty ("") to hide
@@ -32,79 +37,147 @@ PROFILE = {
     },
 }
 
-# TODO: replace with your real experience (most recent first)
+# Most recent first
 EXPERIENCE = [
     {
-        "title": "TODO: Rank / role",
+        "title": "Squadron Leader",
         "company": "Bangladesh Air Force",
         "location": "Dhaka, Bangladesh",
-        "start": "TODO: Mon YYYY",
+        "start": "Dec 2015",
         "end": "Present",
         "highlights": [
-            "TODO: What you did and the impact it had.",
-            "TODO: Another achievement, ideally with a number.",
+            "Served as Officer Commanding, Staff Officer, Officer in Charge of Flight Lines and "
+            "instructor at different BAF units.",
+            "Led aircraft maintenance units, ensuring operational readiness and compliance with "
+            "safety standards.",
+            "Directed projects and units, managing logistics and multinational team operations, "
+            "including UN peacekeeping service with MINUSMA in Mali.",
+            "Mentored and supervised personnel, fostering team cohesion, morale and professional "
+            "development.",
+            "Oversaw procurement and technical evaluation of aerospace equipment, tenders and "
+            "contracts, ensuring regulatory compliance.",
         ],
     },
     {
-        "title": "TODO: Previous job title",
-        "company": "TODO: Company name",
-        "location": "TODO: City, Country",
-        "start": "TODO: Mon YYYY",
-        "end": "TODO: Mon YYYY",
+        "title": "General Manager",
+        "company": "Dream71 Bangladesh Ltd",
+        "location": "Dhaka, Bangladesh",
+        "start": "Aug 2014",
+        "end": "May 2015",
         "highlights": [
-            "TODO: Responsibility or achievement.",
+            "Managed software business operations, liaising with international clients and "
+            "company CEOs to ensure timely project delivery.",
+            "Led recruitment, partnerships and presentations to support business growth and "
+            "team development.",
         ],
     },
 ]
 
-# TODO: confirm degrees, years and details
 EDUCATION = [
     {
+        # Listed on LinkedIn but not in the CV. TODO: add degree, years and details,
+        # or delete this entry.
         "degree": "TODO: Degree and field",
         "school": "Beihang University",
-        "start": "TODO: YYYY",
-        "end": "TODO: YYYY",
-        "details": "TODO: Thesis title, research area, or notable coursework.",
+        "start": "TODO",
+        "end": "TODO",
+        "details": "",
     },
     {
-        "degree": "B.Sc. in Electrical and Electronic Engineering",  # TODO: confirm
+        "degree": "B.Sc. in Electrical & Electronic Engineering",
         "school": "Khulna University of Engineering & Technology (KUET)",
-        "start": "TODO: YYYY",
-        "end": "TODO: YYYY",
-        "details": "TODO: CGPA, thesis title, or notable coursework.",
+        "start": "",
+        "end": "2014",
+        "details": "GPA 3.45 / 4.00. Thesis: Design and Feasibility Study of Grid Connected "
+        "Hybrid Power Generation for Patenga Coastal Area.",
+    },
+    {
+        "degree": "H.S.C., Science",
+        "school": "Kaliganj M.U. Degree College, Jhenaidah",
+        "start": "",
+        "end": "2009",
+        "details": "GPA 5.00 / 5.00",
+    },
+    {
+        "degree": "S.S.C., Science",
+        "school": "N.B. High School, Jhenaidah",
+        "start": "",
+        "end": "2007",
+        "details": "GPA 5.00 / 5.00",
     },
 ]
 
-# Skill groups: {"Group name": ["skill", ...]}  (TODO: replace with your skills)
+# Skill groups: {"Group name": ["skill", ...]}
 SKILLS = {
-    "Engineering": ["Power Systems", "Circuit Design", "Control Systems", "TODO"],
-    "Tools & Software": ["MATLAB", "AutoCAD", "PSpice", "TODO"],
-    "Programming": ["Python", "C", "TODO"],
-    "Soft skills": ["Team leadership", "Communication", "TODO"],
+    "Aviation & Engineering": [
+        "Aircraft Maintenance",
+        "Airfield Operations",
+        "Pre-Shipment Inspections",
+        "Technical Evaluation",
+        "Aviation Safety & Risk Management",
+    ],
+    "Management": [
+        "Project Management & Oversight",
+        "Defence Procurement",
+        "Contract Negotiation",
+        "Logistics",
+    ],
+    "Leadership": [
+        "Team Leadership",
+        "Staff Development & Mentoring",
+        "Instruction & Training",
+        "Cross-Cultural & Multinational Collaboration",
+    ],
 }
 
-# TODO: add your projects (set "link" to "" to hide the link)
+# Research work, shown as project cards ("link" set to "" hides the link)
 PROJECTS = [
     {
-        "name": "TODO: Project name",
-        "description": "TODO: One or two sentences on what it is and what you did.",
-        "tags": ["TODO", "Tag"],
+        "name": "Optimal On-Grid Hybrid Renewable Energy Model for Coastal Area",
+        "description": "A Bangladesh-perspective model for an optimal grid-connected hybrid "
+        "renewable energy system for coastal areas. IEEE publication, University of Dhaka, 2014.",
+        "tags": ["Renewable Energy", "Power Systems", "IEEE"],
         "link": "",
     },
     {
-        "name": "TODO: Another project",
-        "description": "TODO: Short description.",
-        "tags": ["TODO"],
+        "name": "Grid Connected Hybrid Power Generation for Patenga Coastal Area",
+        "description": "Design and feasibility study of a grid-connected hybrid power plant "
+        "for the Patenga coastal area. Undergraduate thesis, KUET, 2014.",
+        "tags": ["Thesis", "Hybrid Power", "Feasibility Study"],
+        "link": "",
+    },
+    {
+        "name": "Defence Against Chemical Disaster: BAF Capacity Building",
+        "description": "Group research paper taking a closer look at Bangladesh Air Force "
+        "capacity building for chemical disaster response. Command & Staff Training "
+        "Institute, Cox's Bazar, 2024.",
+        "tags": ["Defence", "Disaster Response", "Research"],
         "link": "",
     },
 ]
 
-# TODO: certifications, awards, publications. Delete entries you don't need,
-# or leave the list empty ([]) to hide the section.
+# Leave a list empty ([]) to hide it
 CERTIFICATIONS = [
-    {"name": "TODO: Certification name", "issuer": "TODO: Issuer", "year": "TODO", "link": ""},
+    {"name": "No. 125 Junior Command & Staff Course", "issuer": "CSTI BAF, Cox's Bazar", "year": "", "link": ""},
+    {"name": "Aviation Risk Management (ARM) Course", "issuer": "UN Global Service Centre", "year": "", "link": ""},
+    {"name": "United Nations Peacekeeping Certificate", "issuer": "MINUSMA, Mali", "year": "", "link": ""},
+    {"name": "AW119 Helicopter Maintenance Course", "issuer": "Philadelphia, USA", "year": "", "link": ""},
+    {"name": "Aviation Safety Course", "issuer": "Civil Aviation Training Centre, Dhaka", "year": "", "link": ""},
+    {"name": "Ramp Safety Course", "issuer": "Bangladesh Airlines Training Center, Dhaka", "year": "", "link": ""},
+    {"name": "No. 03 Cat D Course", "issuer": "Officers Training School BAF, Jashore", "year": "", "link": ""},
+    {"name": "No. 09 PCPT Course", "issuer": "Officers Training School BAF, Jashore", "year": "", "link": ""},
 ]
 
 PUBLICATIONS = [
-    # {"title": "Paper title", "venue": "Conference / Journal, YYYY", "link": "https://..."},
+    {
+        "title": "Optimal On-Grid Hybrid Renewable Energy Model for Coastal Area: Bangladesh Perspective",
+        "venue": "IEEE, University of Dhaka, 2014",
+        "link": "",
+    },
 ]
+
+AFFILIATIONS = ["Member, Institution of Engineers, Bangladesh (IEB)"]
+
+LANGUAGES = {"English": "Advanced (C1)", "Arabic": "Beginner (A1)", "French": "Beginner (A1)"}
+
+COUNTRIES_VISITED = ["USA", "Canada", "Qatar", "Mali"]

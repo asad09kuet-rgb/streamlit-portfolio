@@ -4,6 +4,9 @@ from pathlib import Path
 import streamlit as st
 
 from profile_data import (
+    AFFILIATIONS,
+    COUNTRIES_VISITED,
+    LANGUAGES,
     CERTIFICATIONS,
     EDUCATION,
     EXPERIENCE,
@@ -17,7 +20,7 @@ ROOT = Path(__file__).parent
 
 st.set_page_config(
     page_title=f"{PROFILE['name']} | Portfolio",
-    page_icon="⚡",
+    page_icon="✈️",
     layout="wide",
 )
 
@@ -68,6 +71,10 @@ def tags(items):
     return "".join(f'<span class="tag">{escape(t)}</span>' for t in items)
 
 
+def date_range(start, end):
+    return f"{start} – {end}" if start else end
+
+
 def section(title):
     st.markdown("---")
     st.header(title)
@@ -79,8 +86,8 @@ with st.sidebar:
     st.title(PROFILE["name"])
     st.caption(PROFILE["headline"])
     st.markdown("**Jump to**")
-    for name in ["About", "Experience", "Education", "Skills", "Projects", "Certifications", "Contact"]:
-        st.markdown(f"- [{name}](#{name.lower()})")
+    for name in ["About", "Experience", "Education", "Skills", "Research", "Certifications", "More about me", "Contact"]:
+        st.markdown(f"- [{name}](#{name.lower().replace(' ', '-')})")
     st.markdown("---")
     if contact.get("linkedin"):
         st.link_button("LinkedIn", contact["linkedin"], use_container_width=True)
@@ -132,7 +139,7 @@ for edu in EDUCATION:
         f"""<div class="card">
               <h4>{escape(edu['degree'])}</h4>
               <div>{escape(edu['school'])}</div>
-              <div class="muted">{escape(edu['start'])} – {escape(edu['end'])}</div>
+              <div class="muted">{escape(date_range(edu['start'], edu['end']))}</div>
               <p>{escape(edu.get('details', ''))}</p>
             </div>""",
         unsafe_allow_html=True,
@@ -147,7 +154,7 @@ for i, (group, items) in enumerate(SKILLS.items()):
         st.markdown(tags(items), unsafe_allow_html=True)
 
 # ---------- Projects ----------
-section("Projects")
+section("Research")
 cols = st.columns(2)
 for i, proj in enumerate(PROJECTS):
     link = proj.get("link")
@@ -167,7 +174,9 @@ for i, proj in enumerate(PROJECTS):
 if CERTIFICATIONS or PUBLICATIONS:
     section("Certifications")
     for cert in CERTIFICATIONS:
-        line = f"**{cert['name']}** · {cert['issuer']} ({cert['year']})"
+        line = f"**{cert['name']}** · {cert['issuer']}"
+        if cert.get("year"):
+            line += f" ({cert['year']})"
         if cert.get("link"):
             line += f" · [credential]({cert['link']})"
         st.markdown(f"- {line}")
@@ -176,6 +185,22 @@ if CERTIFICATIONS or PUBLICATIONS:
         for pub in PUBLICATIONS:
             title = f"[{pub['title']}]({pub['link']})" if pub.get("link") else pub["title"]
             st.markdown(f"- {title}, *{pub['venue']}*")
+
+# ---------- More about me ----------
+if LANGUAGES or AFFILIATIONS or COUNTRIES_VISITED:
+    section("More about me")
+    c1, c2, c3 = st.columns(3)
+    with c1:
+        st.subheader("Languages")
+        for lang, level in LANGUAGES.items():
+            st.markdown(f"- **{lang}**: {level}")
+    with c2:
+        st.subheader("Affiliations")
+        for item in AFFILIATIONS:
+            st.markdown(f"- {item}")
+    with c3:
+        st.subheader("Countries visited")
+        st.markdown(tags(COUNTRIES_VISITED), unsafe_allow_html=True)
 
 # ---------- Contact ----------
 section("Contact")

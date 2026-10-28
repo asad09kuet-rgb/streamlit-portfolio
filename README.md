@@ -13,6 +13,20 @@ Optional extras:
 - **Photo:** add a square image at `assets/profile.jpg` (or `.png`).
 - **CV:** add `assets/resume.pdf` and a "Download CV" button appears.
 
+## Single-file version
+
+`website_full.py` is the whole website in one file: content, styling and the
+profile photo (embedded). It runs on its own:
+
+```bash
+pip install streamlit
+streamlit run website_full.py
+```
+
+Note: the live site uses `app.py` + `profile_data.py`. If you edit content in
+`website_full.py`, either deploy that file as the main file or copy the change
+into `profile_data.py` too.
+
 ## Run locally
 
 ```bash

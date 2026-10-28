@@ -75,8 +75,7 @@ EXPERIENCE = [
 
 EDUCATION = [
     {
-        # TODO: replace with the exact degree and field, e.g. "M.Sc. in ..."
-        "degree": "Graduate studies (in progress)",
+        "degree": "Master's in Space Project Management (in progress)",
         "school": "Beihang University, Beijing, China",
         "start": "Sep 2026",
         "end": "Present",

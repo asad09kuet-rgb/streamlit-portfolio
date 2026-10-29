@@ -27,6 +27,7 @@ from profile_data import (
     FLICKR_PHOTO_COUNT,
     FLICKR_USER_ID,
     HOBBIES,
+    INSIGHTS,
     LANGUAGES,
     PROFILE,
     PROJECTS,
@@ -220,7 +221,7 @@ html(
       .block-container { padding-top: 136px !important; }
       .stTabs [role="tablist"] {
         position: fixed; top: 66px; left: 50%; transform: translateX(-50%); z-index: 900;
-        width: min(1080px, 100%); padding: 0.6rem 1.25rem; gap: 0.35rem;
+        width: min(1080px, 100%); padding: 0.6rem 1.25rem; gap: 0.1rem; justify-content: space-between;
         background: var(--paper); box-shadow: 0 0 0 100vmax var(--paper); clip-path: inset(0 -100vmax);
         border-bottom: 1px solid var(--line);
         overflow-x: auto; scrollbar-width: none; display: flex;
@@ -229,10 +230,10 @@ html(
       [data-testid="stTabsScrollRight"], [data-testid="stTabsScrollLeft"] { display: none !important; }
       .stTabs [data-testid="stTab"] { box-shadow: none !important; border-bottom: none !important; }
       .stTabs [data-testid="stTab"] {
-        height: auto; padding: 0.45rem 1rem; border-radius: 999px; background: transparent;
+        height: auto; padding: 0.45rem 0.7rem; border-radius: 999px; background: transparent;
         white-space: nowrap; transition: background .2s ease; border: none;
       }
-      .stTabs [data-testid="stTab"] p { font-size: 0.78rem !important; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink); margin: 0; }
+      .stTabs [data-testid="stTab"] p { font-size: 0.74rem !important; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: var(--ink); margin: 0; }
       .stTabs [data-testid="stTab"]:hover p { color: var(--gold); }
       .stTabs [data-testid="stTab"][aria-selected="true"] { background: var(--navy) !important; }
       .stTabs [data-testid="stTab"][aria-selected="true"] p { color: #fff !important; }
@@ -387,6 +388,23 @@ html(
       }
       [data-testid="stDownloadButton"] button:hover { transform: translateY(-2px); box-shadow: 0 14px 30px -16px rgba(11,29,58,0.6); }
       [data-testid="stDownloadButton"] button p { color: #fff !important; }
+      .insights-grid { align-items: start; }
+      .insight summary { cursor: pointer; list-style: none; }
+      .insight summary::-webkit-details-marker { display: none; }
+      .insight-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; }
+      .insight-icon { font-size: 1.6rem; width: 46px; height: 46px; border-radius: 12px; background: var(--gold-soft); display: inline-flex; align-items: center; justify-content: center; }
+      .insight-num { font-family: 'Cormorant Garamond', serif !important; font-size: 1.6rem; font-weight: 700; color: var(--line); }
+      .insight-challenge { color: var(--muted) !important; margin-bottom: 0.4rem; }
+      .insight .hint { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--steel); }
+      .insight[open] { border-color: var(--gold); }
+      .insight[open] .hint { display: none; }
+      .insight-fix { margin-top: 0.4rem; padding-top: 0.8rem; border-top: 1px solid var(--line); }
+      .insight-label { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--navy); }
+      .insight-fix ul { margin-top: 0.4rem !important; }
+      .insight-closing {
+        margin: 1.6rem auto 0; max-width: 760px; text-align: center; font-family: 'Cormorant Garamond', serif;
+        font-size: 1.35rem; font-style: italic; color: var(--navy); line-height: 1.5;
+      }
       .footer { text-align: center; color: var(--muted); font-size: 0.8rem; margin-top: 2rem; }
 
       /* Motion: floating and fade-in */
@@ -486,7 +504,7 @@ if contact.get("flickr"):
 if contact.get("github"):
     buttons.append(f'<a class="btn btn-ghost" href="{escape(contact["github"])}" target="_blank">GitHub</a>')
 
-tab_names = ["Overview", "Experience", "Education", "Expertise", "Research", "Training", "More About Me", "Gallery", "Contact"]
+tab_names = ["Overview", "Experience", "Education", "Expertise", "Research", "Insights", "Training", "More About Me", "Gallery", "Contact"]
 tabs = dict(zip(tab_names, st.tabs(tab_names)))
 
 # ---------- Overview ----------
@@ -591,6 +609,30 @@ with tabs["Research"]:
     if PUBLICATIONS:
         pubs = "".join(f"<li><b>{escape(p['title'])}</b>, <i>{escape(p['venue'])}</i></li>" for p in PUBLICATIONS)
         html(f'<div class="card" style="margin-top:1rem"><h3>Publications</h3><ul>{pubs}</ul></div>')
+
+# ---------- Insights ----------
+with tabs["Insights"]:
+    section_title("insights", "Perspectives", INSIGHTS["title"])
+    html(f'<div class="about"><p>{escape(INSIGHTS["intro"])}</p></div>')
+    cards = []
+    for i, item in enumerate(INSIGHTS["challenges"], 1):
+        steps = "".join(f"<li>{escape(m)}</li>" for m in item["mitigation"])
+        cards.append(
+            f"""
+            <details class="card insight">
+              <summary>
+                <div class="insight-head"><span class="insight-icon">{item['icon']}</span>
+                  <span class="insight-num">{i:02d}</span></div>
+                <h3>{escape(item['title'])}</h3>
+                <p class="insight-challenge">{escape(item['challenge'])}</p>
+                <div class="hint">Show mitigation measures ▾</div>
+              </summary>
+              <div class="insight-fix"><div class="insight-label">Mitigation</div><ul>{steps}</ul></div>
+            </details>
+            """
+        )
+    html(f'<div class="grid insights-grid">{"".join(cards)}</div>')
+    html(f'<div class="insight-closing">“{escape(INSIGHTS["closing"])}”</div>')
 
 # ---------- Training ----------
 with tabs["Training"]:

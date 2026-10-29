@@ -202,3 +202,109 @@ FLICKR_USER_ID = "78237795@N08"
 FLICKR_PHOTO_COUNT = 12
 # Fallback slideshow if the photo feed can't be loaded (set to "" to hide)
 FLICKR_EMBED = "https://embedr.flickr.com/photostreams/78237795@N08"
+
+# Insights tab: multinational, intercultural project challenges and how to mitigate them.
+# Each challenge card expands on click to show the mitigation measures.
+INSIGHTS = {
+    "title": "Leading Multinational Projects",
+    "intro": (
+        "Working with multinational teams on UN peacekeeping in Mali, training abroad, and now "
+        "studying Space Project Management in China has shown me that the hardest problems in "
+        "international projects are rarely technical. These are the challenges I see most often, "
+        "and the measures that help a diverse team deliver as one."
+    ),
+    "challenges": [
+        {
+            "icon": "🗣️",
+            "title": "Communication & Language",
+            "challenge": "Different first languages, accents and jargon lead to misunderstood "
+            "instructions and silent disagreement.",
+            "mitigation": [
+                "Agree on one working language and a shared glossary of technical terms.",
+                "Confirm key decisions in writing and use read-backs for critical instructions.",
+                "Prefer visuals, checklists and diagrams over long verbal briefings.",
+            ],
+        },
+        {
+            "icon": "🧭",
+            "title": "Hierarchy & Decision-Making Styles",
+            "challenge": "Some cultures expect top-down direction, others consensus; people may "
+            "not raise concerns to a senior member.",
+            "mitigation": [
+                "Make decision rights explicit with a RACI matrix from day one.",
+                "Invite input in structured ways, such as round-robin and anonymous feedback.",
+                "Leaders model openness by asking for challenge before they decide.",
+            ],
+        },
+        {
+            "icon": "⏱️",
+            "title": "Work Styles & Time Perception",
+            "challenge": "Deadlines, punctuality and 'done' can mean different things across "
+            "cultures, putting schedules at risk.",
+            "mitigation": [
+                "Define clear milestones and acceptance criteria for every deliverable.",
+                "Track progress visibly with short, regular check-ins.",
+                "Build buffers around cultural and religious holidays in the schedule.",
+            ],
+        },
+        {
+            "icon": "🌐",
+            "title": "Distance & Time Zones",
+            "challenge": "Distributed teams lose overlap hours, slow down decisions and miss "
+            "informal information.",
+            "mitigation": [
+                "Set fixed overlap windows and rotate inconvenient meeting times fairly.",
+                "Keep a single source of truth for documents, decisions and status.",
+                "Default to asynchronous updates, with clear owners and response times.",
+            ],
+        },
+        {
+            "icon": "🤝",
+            "title": "Trust & Team Cohesion",
+            "challenge": "Stereotypes and sub-groups by nationality weaken collaboration and "
+            "information sharing.",
+            "mitigation": [
+                "Form mixed-nationality working groups and pair members across cultures.",
+                "Run early team-building and short cultural awareness sessions.",
+                "Recognise contributions publicly and handle conflict early and privately.",
+            ],
+        },
+        {
+            "icon": "🛡️",
+            "title": "Regulations, Export Control & Security",
+            "challenge": "Space and defence projects face export-control rules (e.g. ITAR/EAR), "
+            "national security limits and differing laws.",
+            "mitigation": [
+                "Map applicable regulations and approvals during project planning.",
+                "Classify information and control access on a need-to-know basis.",
+                "Involve legal and compliance experts early, not at the end.",
+            ],
+        },
+        {
+            "icon": "🎯",
+            "title": "Stakeholder & National Interests",
+            "challenge": "Partner agencies and countries bring different priorities, funding "
+            "cycles and political pressures.",
+            "mitigation": [
+                "Agree a shared mission statement and success criteria at the start.",
+                "Use a formal governance board and a clear escalation path.",
+                "Keep stakeholders aligned through regular, transparent reporting.",
+            ],
+        },
+        {
+            "icon": "📐",
+            "title": "Standards & Technical Practices",
+            "challenge": "Different engineering standards, units and documentation formats cause "
+            "interface errors and rework.",
+            "mitigation": [
+                "Agree common standards and units in an interface control document.",
+                "Hold joint design reviews with clear configuration management.",
+                "Verify interfaces early through integration tests and peer checks.",
+            ],
+        },
+    ],
+    "closing": (
+        "Diversity is a strength when it is managed deliberately: clear structure, open "
+        "communication and mutual respect turn many perspectives into better decisions."
+    ),
+}

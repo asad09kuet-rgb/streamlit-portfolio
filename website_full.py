@@ -4,18 +4,20 @@ Hossain Md Asad: personal portfolio website (single-file version).
 Everything the site needs is in this one file: content, styling and layout.
 Run it with:
 
-    pip install streamlit
+    pip install streamlit "qrcode[pil]"
     streamlit run website_full.py
 
 To deploy on Streamlit Community Cloud, choose this file as the main file path.
 """
 import base64
+import io
 import json
 import urllib.request
 from datetime import date
 from html import escape
 from pathlib import Path
 
+import qrcode
 import streamlit as st
 import streamlit.components.v1 as components
 
@@ -283,6 +285,63 @@ def flickr_photos(user_id, count):
     ]
 
 
+def vcard_escape(value):
+    return value.replace("\\", "\\\\").replace(",", "\\,").replace(";", "\\;").replace("\n", "\\n")
+
+
+def build_vcard(full=False):
+    """Contact card (vCard 3.0) built from PROFILE, so it always matches the site."""
+    contact = PROFILE["contact"]
+    title, _, org = PROFILE["headline"].partition(", ")
+    city, _, country = PROFILE["location"].partition(", ")
+    parts = PROFILE["name"].split()
+    lines = [
+        "BEGIN:VCARD",
+        "VERSION:3.0",
+        f"N:{vcard_escape(parts[-1])};{vcard_escape(' '.join(parts[:-1]))};;;",
+        f"FN:{vcard_escape(PROFILE['name'])}",
+        f"TITLE:{vcard_escape(title)}",
+    ]
+    if org:
+        lines.append(f"ORG:{vcard_escape(org)}")
+    whatsapp = "".join(ch for ch in contact.get("whatsapp", "") if ch.isdigit())
+    if whatsapp:
+        lines.append(f"TEL;TYPE=CELL,VOICE:+{whatsapp}")
+    if contact.get("phone"):
+        lines.append(f"TEL;TYPE=VOICE:{contact['phone']}")
+    for i, mail in enumerate([contact.get("email", ""), *contact.get("other_emails", [])]):
+        if mail:
+            lines.append(f"EMAIL;TYPE=INTERNET{',PREF' if i == 0 else ''}:{mail}")
+    lines.append(f"ADR;TYPE=WORK:;;;{vcard_escape(city)};;;{vcard_escape(country)}")
+    url = contact.get("website") or contact.get("linkedin")
+    if url:
+        lines.append(f"URL:{url}")
+    # The QR code keeps only the essentials so it stays easy to scan
+    for network in ("linkedin", "flickr", "github") if full else ():
+        if contact.get(network):
+            lines.append(f"X-SOCIALPROFILE;TYPE={network}:{contact[network]}")
+    if full:
+        photo = find_file(PROFILE.get("photo"))
+        data = base64.b64encode(photo.read_bytes()).decode() if photo else EMBEDDED_PHOTO.split(",", 1)[1]
+        if data:
+            # vCard lines are folded at 75 characters
+            folded = "\r\n ".join(data[i : i + 74] for i in range(0, len(data), 74))
+            lines.append(f"PHOTO;ENCODING=b;TYPE=JPEG:{folded}")
+    lines.append("END:VCARD")
+    return "\r\n".join(lines) + "\r\n"
+
+
+@st.cache_data(show_spinner=False)
+def qr_data_uri(text):
+    qr = qrcode.QRCode(error_correction=qrcode.constants.ERROR_CORRECT_M, box_size=10, border=2)
+    qr.add_data(text)
+    qr.make(fit=True)
+    img = qr.make_image(fill_color="#0b1d3a", back_color="white")
+    buf = io.BytesIO()
+    img.save(buf, format="PNG")
+    return "data:image/png;base64," + base64.b64encode(buf.getvalue()).decode()
+
+
 def date_range(start, end):
     return f"{start} – {end}" if start else end
 
@@ -512,6 +571,16 @@ html(
       .hobby .hint { font-size: 0.72rem; color: var(--muted); font-weight: 400; margin-top: 0.2rem; }
       .hobby[open] .hint { display: none; }
       .hobby .achievement { margin-top: 0.7rem; padding-top: 0.7rem; border-top: 1px solid var(--line); font-size: 0.88rem; color: #4a5770; font-weight: 600; }
+      .vcard { display: flex; align-items: center; gap: 2rem; margin-top: 1.5rem; }
+      .vcard .qr { width: 180px; height: 180px; border-radius: 12px; border: 1px solid var(--line); padding: 6px; background: #fff; flex-shrink: 0; }
+      .vcard h3 { margin-top: 0.2rem !important; }
+      [data-testid="stDownloadButton"] button {
+        background: var(--navy) !important; color: #fff !important; border: none !important;
+        border-radius: 999px !important; padding: 0.6rem 1.2rem !important; font-weight: 600 !important;
+        transition: transform .2s ease, box-shadow .2s ease;
+      }
+      [data-testid="stDownloadButton"] button:hover { transform: translateY(-2px); box-shadow: 0 14px 30px -16px rgba(11,29,58,0.6); }
+      [data-testid="stDownloadButton"] button p { color: #fff !important; }
       .footer { text-align: center; color: var(--muted); font-size: 0.8rem; margin-top: 2rem; }
 
       /* Motion: floating and fade-in */
@@ -566,6 +635,7 @@ html(
         .stats { grid-template-columns: repeat(2, 1fr); }
         .grid { grid-template-columns: 1fr; }
         .photo-grid { grid-template-columns: repeat(2, 1fr); }
+        .vcard { flex-direction: column; text-align: center; }
       }
     </style>
     """
@@ -825,6 +895,27 @@ with tabs["Contact"]:
           <div class="btns">{"".join(contact_btns)}</div>
         </div>
         """
+    )
+
+    file_name = PROFILE["name"].replace(" ", "_") + ".vcf"
+    html(
+        f"""
+        <div class="card vcard">
+          <img class="qr" src="{qr_data_uri(build_vcard())}" alt="QR code with contact details">
+          <div>
+            <div class="kicker">Digital business card</div>
+            <h3>Save my contact</h3>
+            <p>Scan the QR code with your phone camera to add me to your contacts instantly, or download the contact card below.</p>
+          </div>
+        </div>
+        """
+    )
+    st.download_button(
+        "⬇ Save contact (vCard)",
+        data=build_vcard(full=True),
+        file_name=file_name,
+        mime="text/vcard",
+        use_container_width=True,
     )
 
 html(f'<div class="footer">© {date.today().year} {escape(PROFILE["name"])}</div>')

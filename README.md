@@ -19,7 +19,7 @@ Optional extras:
 profile photo (embedded). It runs on its own:
 
 ```bash
-pip install streamlit
+pip install streamlit "qrcode[pil]"
 streamlit run website_full.py
 ```
 

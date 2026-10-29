@@ -272,6 +272,8 @@ html(
       }
       .btn-gold { background: var(--gold); color: var(--navy) !important; }
       .btn-gold:hover { background: #c3ccd9; }
+      .btn-gmail { background: #fff; color: #1f1f1f !important; display: inline-flex; align-items: center; gap: 0.45rem; }
+      .btn-gmail:hover { background: #f1f3f4; }
       .btn-ghost { border: 1px solid rgba(255,255,255,0.4); color: #fff !important; }
       .btn-ghost:hover { border-color: var(--gold); color: var(--gold) !important; }
 
@@ -496,7 +498,16 @@ html(
 
 buttons = []
 if email:
-    buttons.append(f'<a class="btn btn-gold" href="mailto:{escape(email)}">Get in touch</a>')
+    gmail_icon = (
+        '<svg viewBox="0 0 48 48" width="16" height="16" aria-hidden="true">'
+        '<path fill="#4285F4" d="M6 40h7V23L4 16v21a3 3 0 0 0 2 3z"/>'
+        '<path fill="#34A853" d="M35 40h7a3 3 0 0 0 2-3V16l-9 7z"/>'
+        '<path fill="#FBBC04" d="M35 11v12l9-7v-4c0-3.7-4.2-5.8-7.2-3.6z"/>'
+        '<path fill="#EA4335" d="M13 23V11l11 8.3L35 11v12l-11 8.3z"/>'
+        '<path fill="#C5221F" d="M4 12v4l9 7V11l-1.8-1.6C8.2 7.2 4 9.3 4 12z"/></svg>'
+    )
+    gmail_url = f"https://mail.google.com/mail/?view=cm&fs=1&to={escape(email)}"
+    buttons.append(f'<a class="btn btn-gmail" href="{gmail_url}" target="_blank">{gmail_icon} Gmail</a>')
 if contact.get("linkedin"):
     buttons.append(f'<a class="btn btn-ghost" href="{escape(contact["linkedin"])}" target="_blank">LinkedIn</a>')
 if contact.get("flickr"):

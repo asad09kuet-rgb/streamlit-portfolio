@@ -182,6 +182,7 @@ PROJECTS = [
 # Leave a list empty ([]) to hide it
 CERTIFICATIONS = [
     {"name": "Artificial Intelligence and LLM", "issuer": "Beihang University, Hangzhou, China", "year": "", "link": ""},
+    {"name": "Intercultural Communication in Space Project", "issuer": "Beihang University, Hangzhou, China", "year": "", "link": ""},
     {"name": "No. 125 Junior Command & Staff Course", "issuer": "CSTI BAF, Cox's Bazar, Bangladesh", "year": "", "link": ""},
     {"name": "Aviation Risk Management (ARM) Course", "issuer": "UN Global Service Centre", "year": "", "link": ""},
     {"name": "United Nations Peacekeeping Certificate", "issuer": "MINUSMA, Mali", "year": "", "link": ""},

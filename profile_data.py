@@ -136,8 +136,18 @@ SKILLS = {
     ],
 }
 
-# Research work, shown as project cards ("link" set to "" hides the link)
+# Projects and research work, shown as cards ("link" set to "" hides the link)
 PROJECTS = [
+    {
+        "name": "AI and LLM based Assistant on Celestial Body Reentry and Risk Mitigation",
+        "description": "Orbisk: a web app that ranks the risk from satellites and space debris using "
+        "public CelesTrak data. It predicts re-entry time and latitude, screens close approaches, "
+        "scores the 50 riskiest objects from 0 to 100, and uses a RAG-based LLM assistant to explain "
+        "the results in plain language. Role: Product Manager in a five-member team. "
+        "Beihang University, Hangzhou, China, 2026.",
+        "tags": ["AI & LLM", "RAG", "Space Debris", "Streamlit"],
+        "link": "https://satellite-re-entry-debris-tracking-web-app-v2.streamlit.app/",
+    },
     {
         "name": "Optimal On-Grid Hybrid Renewable Energy Model for Coastal Area",
         "description": "A Bangladesh-perspective model for an optimal grid-connected hybrid "

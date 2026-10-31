@@ -515,7 +515,7 @@ if contact.get("flickr"):
 if contact.get("github"):
     buttons.append(f'<a class="btn btn-ghost" href="{escape(contact["github"])}" target="_blank">GitHub</a>')
 
-tab_names = ["Overview", "Experience", "Education", "Expertise", "Research", "Insights", "Training", "More About Me", "Gallery", "Contact"]
+tab_names = ["Overview", "Experience", "Education", "Expertise", "Project & Research", "Insights", "Training", "More About Me", "Gallery", "Contact"]
 tabs = dict(zip(tab_names, st.tabs(tab_names)))
 
 # ---------- Overview ----------
@@ -541,7 +541,7 @@ with tabs["Overview"]:
     stats = [
         (f"{date.today().year - CAREER_START_YEAR}+", "Years experience"),
         (str(len(CERTIFICATIONS)), "Professional courses"),
-        (str(len(PROJECTS)), "Research works"),
+        (str(len(PROJECTS)), "Projects & research"),
         (str(len(COUNTRIES_VISITED)), "Countries"),
     ]
     html(
@@ -599,13 +599,13 @@ with tabs["Expertise"]:
     )
     html(f'<div class="grid">{groups}</div>')
 
-# ---------- Research ----------
-with tabs["Research"]:
-    section_title("research", "Publications & Papers", "Research")
+# ---------- Project & Research ----------
+with tabs["Project & Research"]:
+    section_title("research", "Projects, Publications & Papers", "Project and Research")
     cards = []
     for proj in PROJECTS:
         link = proj.get("link")
-        link_html = f'<p><a href="{escape(link)}" target="_blank">Read more →</a></p>' if link else ""
+        link_html = f'<p><a href="{escape(link)}" target="_blank">View project →</a></p>' if link else ""
         cards.append(
             f"""
             <div class="card">
